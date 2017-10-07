@@ -6,7 +6,7 @@ import org.apache.catalina.startup.Tomcat;
 import javax.servlet.ServletException;
 
 public class TomcatServer {
-    private final static String contextPath = "/";
+    private final static String contextPath = "";
     private final static String appBase = ".";
 
     /**
