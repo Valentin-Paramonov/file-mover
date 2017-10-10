@@ -1,30 +1,48 @@
 package paramonov.valentine.filemover.server;
 
+import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
 
 import javax.servlet.ServletException;
+import java.io.IOException;
 
 public class TomcatServer {
-    private final static String contextPath = "";
-    private final static String appBase = ".";
+    private static final String contextPath = "";
+    private static final String appBase = ".";
+    private final int port;
 
     /**
-     * Starts the embedded Tomcat server on the provided port
-     *
      * @param port the port on which to run the server on
+     */
+    public TomcatServer(int port) {
+        this.port = port;
+    }
+
+    /**
+     * Starts the embedded Tomcat server on the port provided in the constructor
+     *
      * @throws ServerStartException if problem with starting the server occurs
      */
-    public static void runOn(int port) throws ServerStartException {
+    public void run() throws ServerStartException {
         Tomcat tomcat = new Tomcat();
         tomcat.setPort(port);
         tomcat.getHost().setAppBase(appBase);
         try {
-            tomcat.addWebapp(contextPath, appBase);
+            Context context = tomcat.addWebapp(contextPath, appBase);
+            getWebXmlToBeLoadedByThe(context);
             tomcat.start();
-        } catch (ServletException | LifecycleException e) {
+        } catch (ServletException | LifecycleException | IOException e) {
             throw new ServerStartException(e);
         }
         tomcat.getServer().await();
+    }
+
+    // There doesn't seem to be a way to load the web.xml from JAR,
+    // therefore web.xml is first written to disk and then, the context
+    // is pointed to it.
+    private void getWebXmlToBeLoadedByThe(Context context) throws IOException {
+        String webXmlPathOnDisk = new WebXmlExtractor().extractWebXmlFromJar();
+        context.setAltDDName(webXmlPathOnDisk);
     }
 }

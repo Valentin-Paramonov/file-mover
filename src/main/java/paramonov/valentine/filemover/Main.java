@@ -6,6 +6,6 @@ import static paramonov.valentine.filemover.env.EnvironmentVariableProvider.getI
 
 public class Main {
     public static void main(String[] args) {
-        TomcatServer.runOn(getIntEnv("PORT", 8080));
+        new TomcatServer(getIntEnv("PORT", 8080)).run();
     }
 }
