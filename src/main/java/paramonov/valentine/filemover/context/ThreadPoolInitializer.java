@@ -1,4 +1,4 @@
-package paramonov.valentine.filemover.server;
+package paramonov.valentine.filemover.context;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -11,7 +11,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 /**
  * Initializes a {@link ScheduledThreadPoolExecutor} of {@value #poolSize} daemon
  * threads with priority {@value #threadPriority} on context startup and stores it as a
- * context attribute under the key {@value paramonov.valentine.filemover.server.ContextAttribute#threadPool}
+ * context attribute under the key {@value ContextAttribute#threadPool}
  */
 @WebListener
 public class ThreadPoolInitializer implements ServletContextListener {
