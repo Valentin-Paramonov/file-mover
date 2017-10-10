@@ -3,11 +3,12 @@ package paramonov.valentine.filemover.server;
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
+import paramonov.valentine.filemover.logging.Loggable;
 
 import javax.servlet.ServletException;
 import java.io.IOException;
 
-public class TomcatServer {
+public class TomcatServer implements Loggable {
     private static final String contextPath = "";
     private static final String appBase = ".";
     private final int port;
@@ -35,6 +36,7 @@ public class TomcatServer {
         } catch (ServletException | LifecycleException | IOException e) {
             throw new ServerStartException(e);
         }
+        log("Server started on port " + port);
         tomcat.getServer().await();
     }
 
