@@ -8,4 +8,23 @@
             paramonov.valentine.filemover.context.ThreadPoolInitializer
         </listener-class>
     </listener>
+    <servlet>
+        <servlet-name>Directory Poller</servlet-name>
+        <servlet-class>
+            paramonov.valentine.filemover.mover.DirectoryPollerInitializer
+        </servlet-class>
+        <init-param>
+            <param-name>sourceDirectory</param-name>
+            <param-value>/tmp</param-value>
+        </init-param>
+        <init-param>
+            <param-name>destinationDirectory</param-name>
+            <param-value>/tmp</param-value>
+        </init-param>
+        <init-param>
+            <param-name>pollingInterval</param-name>
+            <param-value>10</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
 </web-app>
