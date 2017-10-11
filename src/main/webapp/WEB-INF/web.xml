@@ -9,7 +9,7 @@
         </listener-class>
     </listener>
     <servlet>
-        <servlet-name>Directory Poller</servlet-name>
+        <servlet-name>DirectoryPoller</servlet-name>
         <servlet-class>
             paramonov.valentine.filemover.mover.DirectoryPollerInitializer
         </servlet-class>
@@ -27,4 +27,12 @@
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    <servlet>
+        <servlet-name>ProcessedFileListEndpoint</servlet-name>
+        <servlet-class>paramonov.valentine.filemover.mover.ProcessedFileListEndpoint</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProcessedFileListEndpoint</servlet-name>
+        <url-pattern>/processed-files</url-pattern>
+    </servlet-mapping>
 </web-app>
