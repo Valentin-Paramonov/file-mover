@@ -5,12 +5,10 @@
     <script src="./js/FileDisplayer.js"></script>
 </head>
 <body>
-<h2>Hello World!</h2>
-<div id='files'>
-</div>
-<script>
-    const displayer = new FileDisplayer('/processed-files');
-    setInterval(() => displayer.displayIn('files'), 1000);
-</script>
+    <div id='files' class='panel-body'></div>
+    <script>
+        const displayer = new FileDisplayer('/processed-files');
+        setInterval(() => displayer.displayIn('files'), 2000);
+    </script>
 </body>
 </html>

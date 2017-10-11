@@ -20,26 +20,49 @@ const FileDisplayer = class {
   }
 
   buildFileList(files) {
+      const table = this.buildTable();
+      table.appendChild(this.buildTableHeader('Files Moved'));
+      table.appendChild(this.buildTableBody(files));
+      return table;
+  }
+
+  buildTable() {
+      const fileList = document.createElement('table');
+      fileList.id = 'file-list';
+      fileList.className = 'table table-responsive table-striped table-hover';
+      return fileList;
+  }
+
+  buildTableHeader(headerText) {
+    const thead = document.createElement('thead');
+    thead.innerHTML =
+        `<tr class='bg-info'>
+            <th><h3>${headerText}</h3></th>
+        </tr>`;
+    return thead;
+  }
+
+  buildTableBody(files) {
       return files
-          .map(this.buildFileElement)
+          .map(this.buildFileElement, this)
           .reduceRight(
               (fileList, el) => {
-                fileList.appendChild(el);
-                return fileList;
+                  fileList.appendChild(el);
+                  return fileList;
               },
-              this.buildFileListElement()
+              document.createElement('tbody')
           );
   }
 
   buildFileElement(file) {
-      const div = document.createElement('div');
-      div.innerHTML = file;
-      return div;
+      const row = document.createElement('tr');
+      row.appendChild(this.buildFileColumnElement(file));
+      return row;
   }
 
-  buildFileListElement() {
-      const fileList = document.createElement('div');
-      fileList.id = 'file-list';
-      return fileList;
+  buildFileColumnElement(file) {
+      const col = document.createElement('td');
+      col.innerHTML = file;
+      return col;
   }
 };
